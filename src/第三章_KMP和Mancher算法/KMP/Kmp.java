@@ -41,7 +41,6 @@ public class Kmp {
 //        }
 //        return next;
 //    }
-//
 
 
 
@@ -49,19 +48,15 @@ public class Kmp {
 
 
     public int getIndexOf(String str1,String str2){
-        if (str1.length()<str2.length()){
-            return -1;
-        }
-        char[] chars1 = str1.toCharArray();
+        char[] chars1= str1.toCharArray();
         char[] chars2 = str2.toCharArray();
-        int x=0;
-        int y=0;
-        int[] next=getNextArray(chars1);
+        int[] next=getNextArray(chars2);
+        int x=0,y=0;
         while (x<chars1.length&&y<chars2.length){
             if (chars1[x]==chars2[y]){
                 x++;
                 y++;
-            }else if (next[y]==-1){
+            }else if (y==0){
                 x++;
             }else {
                 y=next[y];
@@ -71,9 +66,6 @@ public class Kmp {
     }
 
     public int[] getNextArray(char[] chars){
-        if (chars.length==1){
-            return new int[]{-1};
-        }
         int[] next=new int[chars.length];
         next[0]=-1;
         next[1]=0;
@@ -83,7 +75,7 @@ public class Kmp {
             if (chars[i-1]==chars[cn]){
                 next[i++]=++cn;
             }else if (cn==0){
-                i++;
+               next[i++]=0;
             }else {
                 cn=next[cn];
             }
